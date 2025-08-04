@@ -19,8 +19,9 @@ def send_message():
         Send a message to the server to be broadcast
     """
     while True:
-        message = input("")
-        client_socket.send(message.encode(ENCODER))
+        while True:
+            message = input("Hey how are you doing?")
+            client_socket.send(message.decode(ENCODER))
 
 
 def recieve_message():
