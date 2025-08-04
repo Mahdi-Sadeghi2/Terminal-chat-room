@@ -22,7 +22,7 @@ client_socket_list = []
 client_name_list = []
 
 
-def boadcast_message(message):
+def broadcast_message(message):
     """
         Send a message to all clients connected to the server
     """
@@ -40,4 +40,21 @@ def connect_client():
     """
         Connet an incoming client to the server
     """
-    pass
+    while True:
+        # Accept any incoming client connection
+        client_socket, client_address = server_socket.accept()
+        print(f"Connected with {client_address}...")
+
+        # Send a name flag to prompt the client for their name
+        client_socket.send("NAME".encode(ENCODER))
+        client_name = client_socket.recv(BYTSIZE).decode(ENCODER)
+
+        # Add new client socket and client name to appropriate lists
+        client_socket_list.append(client_socket)
+        client_name_list.append(client_name)
+        # Update the server, individual client, and all clients
+        print(f"Name of new client is {client_name}\n")
+        client_socket.send(
+            f"{client_name}, you have connected to server!".encode(ENCODER))
+        broadcast_message(
+            f"{client_name} has joined the chat!".encode(ENCODER))
