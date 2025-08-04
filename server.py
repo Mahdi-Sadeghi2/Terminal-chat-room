@@ -58,3 +58,8 @@ def connect_client():
             f"{client_name}, you have connected to server!".encode(ENCODER))
         broadcast_message(
             f"{client_name} has joined the chat!".encode(ENCODER))
+
+
+# Start the server
+print("Server is listening for incoming connections...\n")
+connect_client()
